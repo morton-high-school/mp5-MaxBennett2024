@@ -1,14 +1,13 @@
 public class BetterArray {
-    private int item;
-    private int index;
-    private static int size;
+    private int size;
     public int[] array;
     public BetterArray(){
         size = 0;
-        array = new int[size];
+        array = new int[0];
     }
-    public BetterArray(int item){
-       add(item);
+    public BetterArray(int length){
+        size = 0;
+        array = new int[length];
     }
     //Returns the number of elements in the list
 
@@ -19,18 +18,24 @@ public class BetterArray {
     //appends item to the end of the list; returns true
 
     public boolean add(int item){
-        int len=0;
-        if(size==0){
-            len = 1;
-        }else if(size>0){
-
-        }else{
-            len *=2;
+        if(array.length==0){
+            int[] dup = new int[1];
+            array = new int[dup.length];
+            for(int i =0;i<array.length;i++){
+                array[i] = dup[i];
+            }
         }
-        int[] result = new int[len];
-        for(int i =0;i<array.length;i++){
-            result[i] = array[i];
+        if(size>=array.length){
+            int[] duplicate = new int[array.length*2];
+            for(int i =0;i<array.length;i++){
+                duplicate[i] = array[i];
+            }
+            array = new int[duplicate.length];
+            for(int i =0;i<duplicate.length;i++){
+                array[i] = duplicate[i];
+            }
         }
+        array[size] = item;
         size++;
         return true;
     }
@@ -39,15 +44,7 @@ public class BetterArray {
     // the right and adds 1 to size
 
     public void add(int index, int item){
-        size++;
-        
-        int var = array[index];
-        array[index] = item;
-        for(int i =index+1;i<array.length;i++){
-            int temp = array[i];
-            array[i] = var;
-            var = temp;
-        }
+
     }
 
     // Returns the element at position index in the list
@@ -69,6 +66,6 @@ public class BetterArray {
     //position index
 
     public int remove(int index){
-        return 0;
+        return array[index];
     }
 }
