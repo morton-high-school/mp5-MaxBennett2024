@@ -44,7 +44,24 @@ public class BetterArray {
     // the right and adds 1 to size
 
     public void add(int index, int item){
-
+        if(size>=array.length){
+            int[] duplicate = new int[array.length*2];
+            for(int i =0;i<array.length;i++){
+                duplicate[i] = array[i];
+            }
+            array = new int[duplicate.length];
+            for(int i =0;i<duplicate.length;i++){
+                array[i] = duplicate[i];
+            }
+        }
+        int temp = array[index];
+        array[index] = item;
+        for(int i =index+1;i<array.length;i++){
+            int temp2 = temp;
+            temp = array[i];
+            array[i] = temp2;
+        }
+        size++;
     }
 
     // Returns the element at position index in the list
@@ -66,6 +83,11 @@ public class BetterArray {
     //position index
 
     public int remove(int index){
-        return array[index];
+        int temp = array[index];
+        for(int i =index;i<array.length-1;i++){
+            array[i] = array[i+1];
+        }
+        size--;
+        return temp;
     }
 }
